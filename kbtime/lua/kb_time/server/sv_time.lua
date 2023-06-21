@@ -86,12 +86,19 @@ hook.Add("PlayerSay", "KBTime:PlayerSay", function( ply, text, team )
         if string.lower( text ) == "/kbtime" then
             if not Kobralost_Time.Rank[ply:GetUserGroup()] then return end 
 
-            RPCityAdmin.SQLQuery("SELECT * FROM kbtime_player", function(tbl)
+            Kobralost_Time.SQLQuery("SELECT * FROM kbtime_player", function(tbl)
                 net.Start("KBTime:GetAdminInfo")
                     net.WriteTable(tbl)
                 net.Send(ply)  
             end )
         end 
     end
+end)
+
+hook.Add("playerCanChangeTeam", "KBTime:playerCanChangeTeam", function(ply, t)
+    if isnumber(Kobralost_Time.JobTime[team.GetName(t)]) && ply.KBTime["Time"] < Kobralost_Time.JobTime[team.GetName(t)] then 
+        DarkRP.notify(ply, 1, 5, "You don't have enought time for take this job !")
+        return false 
+    end 
 end)
 
