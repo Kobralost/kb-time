@@ -7,6 +7,10 @@ Kobralost_Time.Rank = {
     ["admin"] = true, 
 }
 
+Kobralost_Time.JobTime = {
+    ["Civil Protection"] = 10000,
+}
+
 if SERVER then 
     include("kb_time/server/sv_time.lua")
     AddCSLuaFile("kb_time/client/cl_time.lua")
